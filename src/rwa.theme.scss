@@ -1,0 +1,38 @@
+@import '~@angular/material/theming';
+// Include the base styles for Angular Material core.
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$rwa-app-primary: mat-palette($mat-indigo);
+$rwa-app-accent: mat-palette($mat-pink, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$rwa-app-warn: mat-palette($mat-red);
+//customize the background theme
+$rwa-app-theme-background: (
+  status-bar: map_get($mat-teal, 300),
+  app-bar:    map_get($mat-teal, 100),
+  background: map_get($mat-teal, 50),
+  hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+  card:       white,
+  dialog:     white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-teal, 300),
+  selected-disabled-button: map_get($mat-teal, 400),
+  disabled-button-toggle: map_get($mat-teal, 200),
+  unselected-chip: map_get($mat-teal, 300),
+  disabled-list-option: map_get($mat-teal, 200),
+);
+//app theme funtion returns the theme from the palletes
+@function rwa-app-theme-fn($primary, $accent, $warn, $foreground, $background) {
+  @return ( primary: $primary, accent: $accent, warn: $warn, is-dark: false, foreground: $foreground, background: $background, );
+}
+
+// Create the theme object (a Sass map containing all of the palettes).
+$rwa-app-theme: rwa-app-theme-fn($rwa-app-primary, $rwa-app-accent, $rwa-app-warn, $mat-light-theme-foreground, $rwa-app-theme-background);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($rwa-app-theme);
